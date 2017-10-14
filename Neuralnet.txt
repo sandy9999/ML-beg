@@ -1,0 +1,12 @@
+class neuralnetwork:
+    def __init__(self, inputl, hiddenl, outputl, learnrate):
+        self.i = inputl
+        self.h = hiddenl
+        self.o = outputl
+        self.lr = learnrate
+        //pass
+    def train():
+        
+        //pass
+    def query():
+        //pass
