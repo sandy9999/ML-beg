@@ -1,12 +1,30 @@
+import numpy
+import scipy.special
+
+def sigmoid(x):
+    return scipy.special.expit(x)
+
 class neuralnetwork:
     def __init__(self, inputl, hiddenl, outputl, learnrate):
         self.i = inputl
         self.h = hiddenl
         self.o = outputl
         self.lr = learnrate
-        //pass
+        self.wih = numpy.random.uniform(low = 0.0,high = pow(self.h,-0.5),size = (self.h,self.i))#-0.5 is to take into account negative weights as well
+        self.who = numpy.random.uniform(low = 0.0,high = pow(self.o,-0.5),size = (self.o,self.h)) 
     def train():
         
-        //pass
-    def query():
-        //pass
+        pass
+    def query(self,inp):
+        inputs = numpy.array(inp)
+        hiddeninputs = numpy.dot(self.wih,inputs)
+        hiddenoutputs = sigmoid(hiddeninputs)
+        lastinputs = numpy.dot(self.who,hiddenoutputs)
+        outputs = sigmoid(lastinputs)
+        return ouputs
+
+inputl = 3
+hiddenl = 3
+outputl = 3
+learnrate = 0.5
+n = neuralnetwork(inputl, hiddenl, outputl, learnrate)
