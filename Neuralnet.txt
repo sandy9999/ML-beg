@@ -1,3 +1,4 @@
+#Source: https://github.com/makeyourownneuralnetwork/makeyourownneuralnetwork/blob/master/part2_neural_network.ipynb
 import numpy
 import scipy.special
 
@@ -10,21 +11,31 @@ class neuralnetwork:
         self.h = hiddenl
         self.o = outputl
         self.lr = learnrate
-        self.wih = numpy.random.uniform(low = 0.0,high = pow(self.h,-0.5),size = (self.h,self.i))#-0.5 is to take into account negative weights as well
-        self.who = numpy.random.uniform(low = 0.0,high = pow(self.o,-0.5),size = (self.o,self.h)) 
-    def train():
-        
-        pass
-    def query(self,inp):
-        inputs = numpy.array(inp)
+        self.wih = numpy.random.uniform(low = -pow(self.h,-0.5),high = pow(self.h,-0.5),size = (self.h,self.i))#-0.5 is to take into account negative weights as well
+        self.who = numpy.random.uniform(low = -pow(self.o,-0.5),high = pow(self.o,-0.5),size = (self.o,self.h)) 
+    def train(self,inp,tg):
+        inputs = numpy.array(inp).T
+        targetv = numpy.array(tg).T #.T stands for transpose
         hiddeninputs = numpy.dot(self.wih,inputs)
         hiddenoutputs = sigmoid(hiddeninputs)
         lastinputs = numpy.dot(self.who,hiddenoutputs)
         outputs = sigmoid(lastinputs)
-        return ouputs
+        outputerrors = targetv - outputs
+        hiddenerrors = numpy.dot(self.who.T,outputerrors)
+        self.who += self.lr*numpy.dot((outputerrors*outputs*(1.0-outputs)),numpy.transpose(hiddenoutputs))
+        
+        
+    def query(self,inp):
+        inputs = numpy.array(inp).T
+        hiddeninputs = numpy.dot(self.wih,inputs)
+        hiddenoutputs = sigmoid(hiddeninputs)
+        lastinputs = numpy.dot(self.who,hiddenoutputs)
+        outputs = sigmoid(lastinputs)
+        return outputs
 
 inputl = 3
 hiddenl = 3
 outputl = 3
 learnrate = 0.5
 n = neuralnetwork(inputl, hiddenl, outputl, learnrate)
+n.query([1.0,0.5,-1.5])
