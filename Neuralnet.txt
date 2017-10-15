@@ -11,7 +11,7 @@ class neuralnetwork:
         self.h = hiddenl
         self.o = outputl
         self.lr = learnrate
-        self.wih = numpy.random.uniform(low = -pow(self.h,-0.5),high = pow(self.h,-0.5),size = (self.h,self.i))#-0.5 is to take into account negative weights as well
+        self.wih = numpy.random.uniform(low = -pow(self.h,-0.5),high = pow(self.h,-0.5),size = (self.h,self.i))
         self.who = numpy.random.uniform(low = -pow(self.o,-0.5),high = pow(self.o,-0.5),size = (self.o,self.h)) 
     def train(self,inp,tg):
         inputs = numpy.array(inp).T
@@ -38,4 +38,3 @@ hiddenl = 3
 outputl = 3
 learnrate = 0.5
 n = neuralnetwork(inputl, hiddenl, outputl, learnrate)
-n.query([1.0,0.5,-1.5])
